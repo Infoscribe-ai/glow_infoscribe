@@ -6,12 +6,12 @@
 namespace glow {
 
 FpsCamera::FpsCamera() {
-  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyW, false));
-  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyA, false));
-  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyS, false));
-  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyD, false));
-  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyC, false));
-  pressed_keys_.insert(std::make_pair(KeyboardKey::KeySpace, false));
+  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyUpArrow, false));    // Avancer
+  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyLeftArrow, false));  // Gauche
+  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyDownArrow, false));  // Reculer
+  pressed_keys_.insert(std::make_pair(KeyboardKey::KeyRightArrow, false)); // Droite
+  pressed_keys_.insert(std::make_pair(KeyboardKey::Key1, false)); // Descendre
+  pressed_keys_.insert(std::make_pair(KeyboardKey::Key7, false));   // Monter
 }
 
 const Eigen::Matrix4f& FpsCamera::matrix() {
@@ -32,24 +32,24 @@ const Eigen::Matrix4f& FpsCamera::matrix() {
   sideVel_ = 0.0;
   turnVel_ = 0.0;
 
-  if (pressed_keys_[KeyboardKey::KeyW]) {
-    forwardVel_ = 1;
-  }
-  if (pressed_keys_[KeyboardKey::KeyS]) {
-    forwardVel_ = -1;
-  }
-  if (pressed_keys_[KeyboardKey::KeyC]) {
-    upVel_ = -1;
-  }
-  if (pressed_keys_[KeyboardKey::KeySpace]) {
-    upVel_ = 1;
-  }
-  if (pressed_keys_[KeyboardKey::KeyA]) {
-    sideVel_ = -1;
-  }
-  if (pressed_keys_[KeyboardKey::KeyD]) {
-    sideVel_ = 1;
-  }
+  if (pressed_keys_[KeyboardKey::KeyUpArrow]) {
+    forwardVel_ = 1;   // Avancer
+}
+if (pressed_keys_[KeyboardKey::KeyDownArrow]) {
+    forwardVel_ = -1;  // Reculer
+}
+if (pressed_keys_[KeyboardKey::Key1]) {
+    upVel_ = -1;  // Descendre
+}
+if (pressed_keys_[KeyboardKey::Key7]) {
+    upVel_ = 1;   // Monter
+}
+if (pressed_keys_[KeyboardKey::KeyLeftArrow]) {
+    sideVel_ = -1; // Déplacement latéral gauche
+}
+if (pressed_keys_[KeyboardKey::KeyRightArrow]) {
+    sideVel_ = 1;  // Déplacement latéral droit
+}
 
   // recompute the view matrix (Euler angles) Remember: Inv(AB) = Inv(B)*Inv(A)
   // Inv(translate*rotateYaw*rotatePitch) = Inv(rotatePitch)*Inv(rotateYaw)*Inv(translate)
